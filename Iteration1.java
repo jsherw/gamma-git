@@ -3,150 +3,192 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Iteration1 implements ActionListener {
-    JButton backBtn, profileBtn, aboutBtn;
-    JPanel cardPanel;
-    JLabel titleLabel, descLabel;
-    String[] cardNames = new String[3];
-    String[] cardDescription = new String[3];
-    int cardCounter = 0;
-/**
- * @author James Sherwood
- * Panel definitions for our GUI
- */
-    public JPanel createHomePane(){
+public class Iteration1 extends JFrame {
+    String nameStr, emailStr;
+    VersionNum num = new VersionNum();
 
-        JPanel homeGUI = new JPanel(); //Parent Panel
+    JButton  submit;
+    JPanel homePanel, profPanel, aboutPanel;
+    JLabel name, nameLab, email, emailLab, dev1, dev2, dev3, dev4, dev5, versionNum, versionNumLab,
+            name1, name2, name3, name4, name5;
 
-        JPanel btnPanel = new JPanel(); //Panel to hold and format buttons
-        btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.LINE_AXIS));
-        btnPanel.add(Box.createRigidArea(new Dimension(10,0)));
-
-        backBtn = new JButton("Back");
-        backBtn.addActionListener(this);
-        btnPanel.add(backBtn);
-        btnPanel.add(Box.createHorizontalGlue());
-
-        profileBtn = new JButton("Profile");
-        profileBtn.addActionListener(this);
-        btnPanel.add(profileBtn);
-        btnPanel.add(Box.createHorizontalGlue());
-
-        aboutBtn = new JButton("About");
-        aboutBtn.addActionListener(this);
-        btnPanel.add(aboutBtn);
-        btnPanel.add(Box.createRigidArea(new Dimension(10,0)));
-
-        //FIXME IMPLEMENT PANELS FOR ABOUT AND PROFILE
-        //Home Page Panel
-        JPanel home = new JPanel();
-        home.setLayout(new BoxLayout(home, BoxLayout.LINE_AXIS));
-        home.add(Box.createRigidArea(new Dimension(5,5)));
-
-        //Profile Page Panel
-        JPanel profile = new JPanel();
-        profile.setLayout(new BoxLayout(profile, BoxLayout.LINE_AXIS));
-        profile.add(Box.createRigidArea(new Dimension(5,5))); //TEMP VALUES
-        //FIXME SHOULD HAVE TEXT FIELDS FOR ENTERING USERNAME AND EMAIL
-        profile.add(btnPanel);
-
-        JPanel about = new JPanel();
-        about.setLayout(new BoxLayout(about, BoxLayout.LINE_AXIS));
-        //FIXME SHOULD DISPLAY VERSION NUMBER AND DEV NAMES
-
-        //Array of cards to be displayed
-        cardPanel = new JPanel(new CardLayout(200,200));
-
-        cardNames[0] = "Home Screen";
-        cardNames[1] = "Profile Page";
-        cardNames[2] = "About Page";
-
-        //Descriptor of cards to be displayed
-        cardDescription[0] = "Home screen with navigation buttons.";
-        cardDescription[1] = "Profile page to input user data.";
-        cardDescription[2] = "About page with version number and dev names";
-
-        cardPanel.add(home, cardNames[0]);
-        cardPanel.add(profile, cardNames[1]);
-        cardPanel.add(about, cardNames[2]);
-
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout((new BorderLayout()));
-
-        bottomPanel.add(btnPanel, BorderLayout.PAGE_START);
-        bottomPanel.add(cardPanel, BorderLayout.CENTER);
-
-        JPanel titlePanel = new JPanel();
-        titlePanel.setLayout(new BoxLayout(titlePanel, BoxLayout.PAGE_AXIS));
-
-        titleLabel = new JLabel(cardNames[0]);
-        descLabel = new JLabel((cardDescription[0]));
-
-        titlePanel.add(titleLabel);
-        titlePanel.add(descLabel);
-
-        bottomPanel.add(titlePanel, BorderLayout.PAGE_END);
-
-        homeGUI.add(bottomPanel);
-        homeGUI.setOpaque(true);
-        return homeGUI;
-    }
+    JLabel group = new JLabel("Team Gamma");
+    JTextField emailT;
+    JTextField nameT;
 
     /**
      * @author James Sherwood
-     * Actions performed when GUI buttons are interacted with
-     * @param e the event to be processed
+     * Structures the GUI frame and panels
      */
-    public void actionPerformed(ActionEvent e){
-        CardLayout c1 = (CardLayout) (cardPanel.getLayout());
+    public Iteration1() {
 
-        if(e.getSource() == profileBtn){
-            c1.first(cardPanel);
-            cardCounter = 1;
-        } else if(e.getSource() == aboutBtn){
-            c1.last(cardPanel);
-            cardCounter = 2;
-        } else if(e.getSource() == backBtn){
-            if(cardCounter == 2){
-                c1.previous(cardPanel);
-                c1.previous(cardPanel);
-                cardCounter = 0;
-            } else{
-                c1.previous(cardPanel);
-                cardCounter = 0;
+        nameT = new JTextField();
+        emailT = new JTextField();
+
+        nameLab = new JLabel("Name: ");
+        emailLab = new JLabel("Email: ");
+        submit = new JButton("Submit");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        initMenu();
+
+        //Home Panel
+        homePanel = new JPanel();
+        homePanel.setSize(400, 400);
+        homePanel.setVisible(true);
+
+        //Profile Panel
+        profPanel = new JPanel();
+        profPanel.setSize(400,400);
+        profPanel.setVisible(true);
+        nameT.setBounds(100,40,140,20);
+        nameT.setFont(new Font("Arial", Font.BOLD, 20));
+        nameT.setHorizontalAlignment(SwingConstants.LEFT);
+
+        emailT.setBounds(100,80,140,20);
+        emailT.setFont(new Font("Arial", Font.BOLD, 20));
+        emailT.setHorizontalAlignment(SwingConstants.LEFT);
+
+        nameLab.setBounds(60, 40, 60, 20);
+        emailLab.setBounds(60,80,60,20);
+
+        submit.setBounds(120, 120, 100, 20);
+        submit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                nameStr = name.getText();
+                emailStr = email.getText();
+                UserInfo u = new UserInfo(nameStr, emailStr); //FIXME Do something with new UserInfo object
             }
-        }
-        titleLabel.setText((cardNames[cardCounter]));
-        descLabel.setText(cardDescription[cardCounter]);
+        });
+
+        profPanel.add(nameLab);
+        profPanel.add(emailLab);
+        profPanel.add(nameT);
+        profPanel.add(emailT);
+        profPanel.add(submit);
+
+        //About panel
+        aboutPanel = new JPanel();
+        aboutPanel.setSize(400,400);
+        aboutPanel.setVisible(true);
+        dev1 = new JLabel("1. Developer: ");
+        name1 = new JLabel("James Sherwood");
+        versionNum = new JLabel(num.toString());
+        versionNumLab = new JLabel("Version Number: ");
+
+        group.setBounds(40, 100, 100, 20);
+        dev1.setBounds(40, 120, 80, 20);
+        name1.setBounds(120, 120, 140, 20);
+        versionNumLab.setBounds(80, 20, 100,20);
+        versionNum.setBounds(190, 20, 100, 20);
+        aboutPanel.add(versionNumLab);
+        aboutPanel.add(versionNum);
+        aboutPanel.add(group);
+        aboutPanel.add(dev1);
+        aboutPanel.add(name1);
+        setLayout(new BorderLayout());
     }
 
     /**
      * @author James Sherwood
-     * GUI constructor
+     * initializes the menu bar for moving between pages.
      */
-    private static void createAndDispGUI(){
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        JFrame frame = new JFrame("~~~GUI Prototype~~");
 
-        Iteration1 demo = new Iteration1();
-        frame.setContentPane(demo.createHomePane());
+    private void initMenu(){
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu = new JMenu("Menu");
+        JMenuItem menuHome = new JMenuItem("Home");
+        JMenuItem menuProf = new JMenuItem("Profile");
+        JMenuItem menuAb = new JMenuItem("About");
+        menuBar.add(menu);
+        menu.add(menuHome);
+        menu.add(menuProf);
+        menu.add(menuAb);
+        setJMenuBar(menuBar);
 
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
-        frame.setVisible(true);
+        menuHome.addActionListener(new MenuActionHome(homePanel));
+        menuProf.addActionListener(new MenuActionProfile(profPanel));
+        menuAb.addActionListener(new MenuActionAbout(aboutPanel));
+    }
+
+    /**
+     * @author James Sherwood
+     * change displayed panel
+     * @param panel the new panel to be retrieved
+     */
+    private void changePanel(JPanel panel) {
+        getContentPane().removeAll();
+        getContentPane().add(panel, BorderLayout.CENTER);
+        getContentPane().doLayout();
+        update(getGraphics());
+    }
+
+    /**
+     * @author James Sherwood
+     * Create input based on user menu selection (Switch to profile panel)
+     */
+    private class MenuActionProfile implements ActionListener {
+
+        JPanel panel;
+
+        private MenuActionProfile(JPanel pnl) {
+            this.panel = pnl;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            changePanel(profPanel);
+
+        }
+    }
+
+    /**
+     * @author James Sherwood
+     * Create input based on user menu selection (Switch to about panel)
+     */
+    private class MenuActionAbout implements ActionListener {
+
+        JPanel panel;
+
+        private MenuActionAbout(JPanel pnl) {
+            this.panel = pnl;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            changePanel(aboutPanel);
+
+        }
+    }
+
+    /**
+     * @author James Sherwood
+     * Create input based on user menu selection (Switch to home panel)
+     */
+    private class MenuActionHome implements ActionListener {
+
+        JPanel panel;
+
+        private MenuActionHome(JPanel pnl) {
+            this.panel = pnl;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            changePanel(homePanel);
+
+        }
     }
 
     /**
      * @author James Sherwood
      * Driver program
-     * @param args default
+     * @param args
      */
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                createAndDispGUI();
-            }
-        });
+        Iteration1 frame = new Iteration1();
+        frame.setBounds(400,400, 400,400);
+        frame.setVisible(true);
     }
 }

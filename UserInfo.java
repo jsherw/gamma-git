@@ -1,5 +1,8 @@
-/*
- * Create object with user info
+import javax.swing.*;
+
+/**
+ * @author James Sherwood
+ * Create object class to hold user name and email
  */
 public class UserInfo {
     private String userName;
@@ -7,68 +10,37 @@ public class UserInfo {
 
     /**
      * @author James Sherwood
-     * Default Constructor
+     * @param s1 user's name
+     * @param s2 user's e-mail
      */
-    public UserInfo(){
-        setUserName(null);
-        setUserEmail(null);
+//FIXME Add input validation
+    public UserInfo(String s1, String s2){
+        setUserName(s1);
+        setUserEmail(s2);
     }
 
-    /**
-     * @author James Sherwood
-     * Parameterized Constructor
-     *
-     * @param name username
-     * @param email user e-mail
-     */
-    public UserInfo(String name, String email){
-        setUserName(name);
-        setUserEmail(email);
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    /**
-     * @author James Sherwood
-     * Override default toString
-     * @return formatted userName and userEmail
-     */
-    @Override
-    public String toString(){
-        return "Name: " + this.userName + "\n" + "E-mail Address:" + this.userEmail;
-    }
-
-    /**
-     * @author James Sherwood
-     * Setter for field userName
-     * @param name username
-     */
-    public void setUserName(String name){
-        this.userName = name;
-    }
-
-    /**
-     * @author James Sherwood
-     * Getter for field userName
-     * @return field userName value
-     */
     public String getUserName() {
         return userName;
     }
 
-    /**
-     * @author James Sherwood
-     * Setter for field userEmail
-     * @param email user e-mail
-     */
-    public void setUserEmail(String email){
-        this.userEmail = email;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
     }
 
     /**
      * @author James Sherwood
-     * Getter for field userEmail
-     * @return userEmail user e-mail
+     * @return formatted user name and email.
      */
-    public String getUserEmail() {
-        return userEmail;
+    @Override
+    public String toString(){
+        return "Name: " + getUserName() + "\n" + "Email: " + getUserEmail() + "\n";
     }
 }
