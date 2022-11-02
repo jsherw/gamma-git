@@ -1,5 +1,3 @@
-import javax.swing.*;
-
 /**
  * @author James Sherwood
  * Create object class to hold user name and email
