@@ -1,5 +1,6 @@
 /*
  * TCSS 360 Doc Keeper application
+ * TCSS360 Fall 2022
  */
 
 
@@ -32,8 +33,8 @@ import javax.swing.SwingWorker;
 /**
  * LoginFrame provides a user interface for login and registration.
  * 
- * @author 
- * @version
+ * @author Uladzimir Hanevich
+ * @version 0.1
  */
 public class LoginFrame extends JFrame {
 
@@ -123,7 +124,7 @@ public class LoginFrame extends JFrame {
     }
 
     /**
-     * Add Listeners to any GUI components that require them.
+     * Adds Listeners to LoginFrame buttons.
      */
     private void assignActions() {
         myLoginButton.addActionListener(this::loginButtonAction);
@@ -131,7 +132,7 @@ public class LoginFrame extends JFrame {
     }
     
     /**
-     * Finalize this JFrame before making visible. 
+     * Finalizes JFrame before making visible. 
      */
     private void finalizeFrame() {
         // make the GUI so that it cannot be resized by the user dragging a corner
@@ -210,8 +211,8 @@ public class LoginFrame extends JFrame {
 
     /**
      * Event handler for the Login Button during registration. 
-     * This method is implicitly called when the user presses the "Register and (or) Login" button. It is not explicitly called in 
-     * this class: you will not find a method invocation for it.
+     * This method is implicitly called when the user presses the "Register and (or) Login" button. 
+     * It is not explicitly called in this class: you will not find a method invocation for it.
      * 
      * @param theEvent the ActionEvent that triggered this method.
      * @throws IllegalStateException when the component is not a JButton
@@ -273,14 +274,13 @@ public class LoginFrame extends JFrame {
     
     /**
      * A worker thread to attempt register user.
-     * NOTE: THERE ARE NO ERRORS/BUGS IN THIS INNER CLASS
      * Operations that may take a long time to complete (like file I/O or network connections) 
      * should be performed in a thread separate from the user interface thread. This will keep 
      * your graphical user interface responsive to user interactions. 
      * This inner class starts a background thread to perform the file I/O operations found in
      * io.Credentialing.java
      * 
-     * @author 
+     * @author Uladzimir Hanevich
      *
      */
     private class AttemptRegistrationWorker extends SwingWorker<String, Integer> {
@@ -296,7 +296,7 @@ public class LoginFrame extends JFrame {
         @Override
         public void done() {
             try {
-                // Error message cmes from CredentialingLoader class register method.
+                // Error message comes from CredentialingLoader class register method.
                 final String errMsg = get(); //get() blocks all executions in this worker until it is done. 
                 if (errMsg.isEmpty()) {      //When empty (no errMsg) - proceed executions
                     LoginFrame.this.dispose();

@@ -1,5 +1,6 @@
 /*
-* TCSS 360 Doc Keeper application
+* Doc Keeper application
+* TCSS 360 Fall 2022
 */
 
 
@@ -15,7 +16,7 @@ import java.util.Scanner;
 * Write new user information to the Users file (register)
 * Checks entered credentials against existing store credentials (login) 
 * @author Uladzimir Hanevich
-* @version Fall 2022
+* @version 0.1
 */
 public final class CredentialingLoader {
    
@@ -39,7 +40,7 @@ public final class CredentialingLoader {
     * 
     * @param theUsername the user name to attempt
     * @param thePassword the password to attempt
-    * @return the users campus or the empty String if login is unsuccessful 
+    * @return result containing the error message if login is not successful, empty if login is OK.
     */
    public static String login(final String theUsername, final String thePassword) {
        String result = "";
@@ -82,7 +83,6 @@ public final class CredentialingLoader {
     * 
     * @param theUsername the user name to add
     * @param thePassword the password associated to the user name
-    * @param theCampus the campus associated to the user name
     * @return empty String if written, an error message otherwise
     * @throws IllegalArgumentException when any of the arguments are non-null but "empty"
     */
